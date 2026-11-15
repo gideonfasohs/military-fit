@@ -24,9 +24,13 @@ await send('Runtime.enable'); await send('Log.enable'); await send('Page.enable'
 await send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
 let fails = 0;
 const check = (name, ok, extra = '') => { if (!ok) fails++; console.log((ok ? 'PASS ' : 'FAIL ') + name + (extra ? '  ' + extra : '')); };
-const go = async hash => { await ev(`location.hash='${hash}'`); await sleep(350); };
+const go = async hash => { await ev(`location.hash='${hash}'`); await sleep(450); };
 
-await send('Page.navigate', { url: BASE + 'index.html' }); await sleep(3500);
+await send('Page.navigate', { url: BASE + 'index.html' });
+// wait (up to 20 s) for the app to draw and the service worker to take control
+for (let i = 0; i < 40; i++) { await sleep(500); if (await ev(`!!document.querySelector('#app h1')`)) break; }
+await ev(`Promise.race([navigator.serviceWorker.ready, new Promise(r => setTimeout(r, 15000))]).then(() => true)`);
+await sleep(1000);
 check('SW active', await ev(`navigator.serviceWorker.getRegistration().then(r => !!(r && r.active))`));
 const cacheInfo = await ev(`caches.keys().then(async k => { const c = await caches.open(k[0]); return k[0] + ':' + (await c.keys()).length })`);
 console.log('INFO cache', cacheInfo);
