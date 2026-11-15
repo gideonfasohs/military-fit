@@ -27,7 +27,7 @@ const NUM_KEYS = ['torso', 'head', 'uArm', 'fArm', 'thigh', 'shin', 'ft',
 const R = { head: 0.085, hip: 0.055, shoulder: 0.05, elbow: 0.033, hand: 0.031, knee: 0.038, ankle: 0.025, toe: 0.025 };
 
 // Night Ops v2 figure colours (see DESIGN.md)
-const C = { body: '#EEF2F8', near: '#F2C14E', far: '#7D6A2E', circle: '#15263F', floor: '#22395C' };
+const C = { body: '#EEF2F8', near: '#F2C14E', far: '#7D6A2E', circle: '#15263F', floor: '#22395C', tick: '#3A5174' };
 
 const EASE = {
   linear: u => u,
@@ -80,7 +80,7 @@ export function solve(p, view) {
   return pts;
 }
 
-function radiusOf(name) {
+export function radiusOf(name) {
   for (const k of Object.keys(R)) if (name.startsWith(k)) return R[k];
   return 0.02;
 }
@@ -103,6 +103,7 @@ export class FigurePlayer {
    */
   constructor(canvas, def, opts = {}) {
     this.canvas = canvas;
+    this.opts = opts;
     this.ctx = canvas.getContext('2d');
     this.def = def;
     this.view = def.view || 'side';
@@ -176,8 +177,12 @@ export class FigurePlayer {
         maxY = Math.max(maxY, pt[1] + r);
       }
     }
+    if (this.def.prop === 'wall') maxX = Math.max(maxX, this._wallX() + 0.03);
     this.bounds = { minX, maxX, maxY };
   }
+
+  // x position of the wall (just in front of the planted hands)
+  _wallX() { return this._eval(0).world.handN[0] + 0.031; }
 
   resize(w, h) {
     this.dpr = Math.min(window.devicePixelRatio || 1, 3);
@@ -193,8 +198,8 @@ export class FigurePlayer {
     ctx.clearRect(0, 0, W, H);
     const b = this.bounds;
     // keep the figure above the control buttons (bottom strip) and clear of the view chip
-    const reserve = this.h > 240 ? 76 : this.h * 0.26;
-    const top = this.h > 240 ? 20 : 8;
+    const reserve = this.opts.reserve !== undefined ? this.opts.reserve : (this.h > 240 ? 76 : this.h * 0.26);
+    const top = this.opts.top !== undefined ? this.opts.top : (this.h > 240 ? 20 : 8);
     const areaH = H - reserve - top;
     const bw = (b.maxX - b.minX) + 0.2, bh = b.maxY + 0.1;
     const barH = Math.max(5, areaH * 0.03);
@@ -215,6 +220,21 @@ export class FigurePlayer {
     const barW = W * 0.76;
     ctx.fillStyle = C.floor;
     roundRect(ctx, (W - barW) / 2, groundY + 1, barW, barH, barH / 2); ctx.fill();
+    if (this.def.prop === 'wall') {
+      const wx = X(this._wallX()), ww = Math.max(6, 0.03 * scale);
+      ctx.fillStyle = C.floor;
+      roundRect(ctx, wx, top, ww, groundY + barH + 1 - top, ww / 2); ctx.fill();
+    }
+    if (this.def.scrollDist) {
+      // The floor slides backwards so a walking figure stays in place without its feet skating.
+      const sp = (this.def.scrollDist / 4) * scale;
+      const off = (this.t / this.duration) * this.def.scrollDist * scale;
+      const left = (W - barW) / 2, right = left + barW;
+      ctx.fillStyle = C.tick;
+      for (let x = left + sp - (off % sp); x < right - 6; x += sp) {
+        if (x > left + 6) ctx.fillRect(x - 1.5, groundY + 1 + barH * 0.2, 3, barH * 0.6);
+      }
+    }
 
     const seg = (a, c, w, col) => {
       ctx.strokeStyle = col; ctx.lineWidth = w * scale;
@@ -356,5 +376,25 @@ export function mountAnimation(host, def, opts = {}) {
   player._emit();
   if (opts.autoplay !== false) player.play();
   player.dispose = () => { ro.disconnect(); player.destroy(); };
+  return player;
+}
+
+// Small looping animation for list cards. Runs only while visible on screen.
+export function mountMini(host, def) {
+  host.innerHTML = '<canvas aria-hidden="true"></canvas>';
+  const canvas = host.querySelector('canvas');
+  const player = new FigurePlayer(canvas, def, { reserve: 0, top: 6 });
+  const ro = new ResizeObserver(() => player.resize(host.clientWidth, host.clientHeight));
+  ro.observe(host);
+  const calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let io = null;
+  if (calm) player.seek(def.restAt !== undefined ? def.restAt : 0);
+  else if ('IntersectionObserver' in window) {
+    io = new IntersectionObserver(entries => {
+      for (const e of entries) e.isIntersecting ? player.play() : player.pause();
+    }, { rootMargin: '80px' });
+    io.observe(host);
+  } else player.play();
+  player.dispose = () => { ro.disconnect(); if (io) io.disconnect(); player.destroy(); };
   return player;
 }

@@ -11,21 +11,15 @@
   <link rel="stylesheet" href="./css/app.css">
 </head>
 <body>
-  <h1>MILITARY FIT</h1>
-  <p class="muted">Phase 1, Step 1: project foundation.</p>
+  <main id="app"></main>
 
-  <div class="card">
-    <span class="badge">Built</span>
-    <h2>App shell and animation engine</h2>
-    <p class="muted">The offline shell and the exercise figure engine are ready for testing.</p>
-    <a class="btn" href="./test-anim.html">Open animation test page</a>
-  </div>
-
-  <div class="card">
-    <span class="badge muted-badge">Coming in Phase 1</span>
-    <h2>Onboarding, dashboard, programme, library</h2>
-    <p class="muted">Coming in the next Phase 1 steps.</p>
-  </div>
+  <nav id="nav" class="bottom-nav" aria-label="Main">
+    <a href="#/dashboard" data-tab="home"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9H3z"/></svg>Home</a>
+    <a href="#/workouts" data-tab="workouts"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M18 8v8M3 10v4M21 10v4M6 12h12"/></svg>Workouts</a>
+    <a href="#/library" data-tab="library"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h6v14H4zM14 5h6v14h-6z"/></svg>Library</a>
+    <a href="#/progress" data-tab="progress"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19l5-6 4 3 7-9"/></svg>Progress</a>
+    <a href="#/more" data-tab="more"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>More</a>
+  </nav>
 
   <script type="module" src="./js/app.js"></script>
 </body>

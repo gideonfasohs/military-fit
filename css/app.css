@@ -86,7 +86,112 @@ a { color: var(--gold); }
 .anim:fullscreen, .anim:-webkit-full-screen { display: flex; flex-direction: column; background: var(--bg); padding: 12px; }
 .anim:fullscreen .anim-stage, .anim:-webkit-full-screen .anim-stage { flex: 1; aspect-ratio: auto; }
 
-/* ---------- Exercise block on the test page ---------- */
-.ex { margin: 22px 0 30px; }
-.ex-name { text-align: center; margin-top: 14px; font-size: 32px; }
-.ex-meta { text-align: center; color: var(--muted); font-size: 15px; }
+/* ---------- Demo block on the test page ---------- */
+.demo { margin: 22px 0 30px; }
+.demo-name { text-align: center; margin-top: 14px; font-size: 32px; }
+.demo-meta { text-align: center; color: var(--muted); font-size: 15px; }
+
+/* ---------- App shell ---------- */
+body { padding-bottom: calc(70px + env(safe-area-inset-bottom) + 24px); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.page-head { margin: 6px 0 14px; }
+.page-head p { margin: 4px 0 0; }
+.card p:last-child { margin-bottom: 0; }
+.tile {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  border-radius: 10px; background: var(--gold-tint); color: var(--gold);
+}
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.bottom-nav {
+  position: fixed; left: 0; right: 0; bottom: 0; margin: 0 auto; max-width: 560px; z-index: 10;
+  height: calc(70px + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom);
+  background: var(--nav); border-top: 1px solid #1A2B45;
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.bottom-nav a {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  text-decoration: none; color: var(--muted); font-size: 11px;
+}
+.bottom-nav a[aria-current="page"] { color: var(--gold); font-weight: 700; }
+
+.coming { display: flex; gap: 14px; align-items: flex-start; }
+.coming h2 { margin: 2px 0 6px; }
+.rows { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.row { display: flex; align-items: center; gap: 12px; background: var(--card); border-radius: 16px; padding: 12px 14px; min-height: 60px; }
+.row-name { flex: 1; font-weight: 600; }
+.row .badge { margin: 0; white-space: nowrap; font-size: 11px; }
+.foot-note { margin-top: 14px; }
+
+/* ---------- Library ---------- */
+.search {
+  display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 14px;
+  background: var(--card); border-radius: 16px; color: var(--muted);
+}
+.search input {
+  flex: 1; min-width: 0; height: 100%; background: transparent; border: 0; outline: none;
+  color: var(--text); font: inherit; font-size: 16px;
+}
+.search input::placeholder { color: var(--muted); }
+.search:focus-within { outline: 2px solid var(--gold); }
+.tabs {
+  display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+  margin: 0 -18px; padding: 12px 18px 4px;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex: none; min-height: 44px; padding: 0 16px; border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--card); color: var(--text); font: inherit; font-size: 14px; font-weight: 600;
+}
+.tab[aria-pressed="true"] { background: var(--gold); color: var(--bg); }
+.result-count { min-height: 1.4em; margin: 8px 2px 4px; }
+.ex-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 8px; }
+.ex-card { display: block; overflow: hidden; background: var(--card); border-radius: 20px; color: var(--text); text-decoration: none; }
+.ex-card[hidden] { display: none; }
+.ex-thumb { aspect-ratio: 4 / 3; background: var(--bg); }
+.ex-thumb canvas { display: block; width: 100%; height: 100%; }
+.ex-info { display: flex; flex-direction: column; padding: 10px 12px 13px; }
+.ex-name { font-family: var(--font-head); font-weight: 700; font-size: 20px; line-height: 1.15; }
+.ex-sub { margin-top: 2px; font-size: 12px; color: var(--muted); }
+.empty { text-align: center; color: var(--muted); }
+
+/* ---------- Exercise detail ---------- */
+.topbar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.icon-btn {
+  display: flex; align-items: center; justify-content: center; flex: none;
+  width: 44px; height: 44px; border-radius: 14px; background: var(--card); color: var(--text); text-decoration: none;
+}
+.icon-btn-spacer { width: 44px; flex: none; }
+.topbar-title { flex: 1; text-align: center; font-size: 24px; }
+.ex-head { text-align: center; margin: 16px 0 6px; }
+.ex-title { font-size: 32px; }
+.ex-dose { margin: 2px 0 8px; color: var(--muted); font-size: 15px; }
+.chip {
+  display: inline-block; margin: 0 4px 6px 0; padding: 4px 12px; border-radius: 999px;
+  background: var(--card-2); color: var(--text); font-size: 13px;
+}
+.ex-tags .chip { margin: 0 3px; }
+.info { margin: 12px 0; }
+.info-title { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 20px; }
+.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; display: flex; flex-direction: column; gap: 10px; }
+.steps li { counter-increment: s; display: flex; align-items: flex-start; gap: 12px; }
+.steps li::before {
+  content: counter(s); flex: none; width: 26px; height: 26px; margin-top: 1px; border-radius: 50%;
+  background: var(--gold); color: var(--bg); font-family: var(--font-head); font-weight: 700; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+.plain { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.plain li { position: relative; padding-left: 18px; }
+.plain li::before { content: ''; position: absolute; left: 0; top: .6em; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+.big-dose { margin: 0 0 6px; font-family: var(--font-head); font-size: 26px; font-weight: 700; }
+.chips { margin: 0; }
+.alts { display: flex; flex-direction: column; gap: 10px; margin: 12px 0; }
+.alt {
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px; min-height: 60px;
+  background: var(--card); border-radius: 16px; color: var(--text); text-decoration: none;
+}
+.alt > svg:first-child { color: var(--gold); }
+.alt > svg:last-child { color: var(--muted); }
+.alt span { flex: 1; display: flex; flex-direction: column; line-height: 1.25; }
+.alt small { color: var(--muted); font-size: 12px; }
+.alt b { font-size: 16px; }
