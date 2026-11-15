@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#081120">
+  <title>Animation test — MILITARY FIT</title>
+  <link rel="icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./css/app.css">
+</head>
+<body>
+  <h1>Animation test</h1>
+  <p class="muted">Three figures drawn in code. Try Pause, Replay, Loop, 0.5× and full screen.</p>
+
+  <section class="ex" aria-label="Bodyweight squat">
+    <div id="squat"></div>
+    <h2 class="ex-name">Bodyweight Squat</h2>
+    <p class="ex-meta">Side view</p>
+  </section>
+  <section class="ex" aria-label="Push-up">
+    <div id="pushup"></div>
+    <h2 class="ex-name">Push-up</h2>
+    <p class="ex-meta">Side view</p>
+  </section>
+  <section class="ex" aria-label="Jumping jacks">
+    <div id="jj"></div>
+    <h2 class="ex-name">Jumping Jacks</h2>
+    <p class="ex-meta">Front view</p>
+  </section>
+  <p><a href="./index.html">Back to start</a></p>
+
+  <script type="module">
+    import { mountAnimation } from './js/anim.js';
+    import { squat, pushup, jumpingJack } from './js/data/animations.js';
+    window.players = {
+      squat: mountAnimation(document.getElementById('squat'), squat),
+      pushup: mountAnimation(document.getElementById('pushup'), pushup),
+      jj: mountAnimation(document.getElementById('jj'), jumpingJack),
+    };
+  </script>
+</body>
+</html>
