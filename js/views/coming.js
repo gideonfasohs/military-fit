@@ -13,10 +13,16 @@ function comingCard({ phase, title, text }) {
     </section>`;
 }
 
-export function renderHome(app) {
+export function renderHome(app, ctx = {}) {
+  const name = ctx.profile && ctx.profile.person && ctx.profile.person.name;
   app.innerHTML = `
-    <header class="page-head"><h1>Home</h1></header>
-    ${comingCard({ phase: '1', title: 'Your dashboard', text: 'Onboarding, your personal profile, your 30-day programme and today\'s workout are the next steps of Phase 1.' })}
+    <header class="page-head"><h1>${name ? `Welcome, ${esc(name)}` : 'Home'}</h1></header>
+    ${comingCard({ phase: '1', title: 'Your dashboard', text: 'Your 30-day programme and today\'s workout are the next steps of Phase 1. Nothing is shown here until it is real.' })}
+    <section class="card">
+      <h2>My Fitness Profile</h2>
+      <p class="muted">Your goals, starting point and targets, saved on this phone.</p>
+      <a class="btn outline" href="#/profile">Open my profile</a>
+    </section>
     <section class="card">
       <h2>You can already use the library</h2>
       <p class="muted">Watch an animated demonstration of any of the 24 exercises and read how to do it safely.</p>

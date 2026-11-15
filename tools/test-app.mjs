@@ -35,6 +35,12 @@ check('SW active', await ev(`navigator.serviceWorker.getRegistration().then(r =>
 const cacheInfo = await ev(`caches.keys().then(async k => { const c = await caches.open(k[0]); return k[0] + ':' + (await c.keys()).length })`);
 console.log('INFO cache', cacheInfo);
 
+
+// seed a saved profile so Home opens (without one, Home sends you to the Welcome screen)
+await ev(`(async () => { const a = { version: 1, goals: { selected: ['general'], other: null, primary: 'general' }, change: { selected: ['health'], other: null }, level: 'beginner', activity: 'light', success: null, horizon: 'none', time: '20-30', days: '3', style: 'mixed', limitations: { items: [], none: true, other: null }, person: { name: 'Tester', age: 30, sex: null, heightCm: 170, weightKg: 70, waistCm: null, hipCm: null, experience: null, preferredTime: null }, units: { weight: 'kg', length: 'cm' }, targets: { weightKg: null, waistCm: null, pushups: null, plankSeconds: null, walkingMinutes: null }, baseline: { pushupVariation: null, pushupReps: null, squatReps: null, plankSeconds: null, walkingMinutes: null, energy: null } };
+  await new Promise(res => { const q = indexedDB.open('militaryfit', 1); q.onupgradeneeded = () => q.result.createObjectStore('kv'); q.onsuccess = () => { const t = q.result.transaction('kv', 'readwrite'); t.objectStore('kv').put(a, 'profile'); t.oncomplete = res; }; }); return true; })()`);
+await go('#/dashboard');
+
 // routes with "coming soon" content
 for (const [hash, text] of [['#/dashboard', 'Coming in Phase 1'], ['#/workouts', 'Coming in Phase 2'], ['#/progress', 'Coming in Phase 4'], ['#/more', 'Coming in Phase 5']]) {
   await go(hash);

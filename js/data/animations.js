@@ -16,23 +16,27 @@ const ARMS_DOWN = { uArm: 178, fArm: 172 };
 // =====================================================================
 
 // ---- Wall push-up (side view). Hands stay on the wall, feet stay flat on the floor. ----
-// Angles worked out so that the hand never moves on the wall (hand height 0.73, wall at x = 0.595).
+// The hands sit a little below shoulder height. Angles were worked out so the hand never moves on the wall
+// (hand at x 0.43, height 0.57). At the bottom the elbows point down and back, about 45° from the body.
 const WP = a => ({ torso: a, head: a - 6, thigh: a + 180, shin: a + 180, ft: 90 });
-const WP_TOP = P(WP(22), { uArm: 90, fArm: 90 });
-const WP_MID = P(WP(25.5), { uArm: 114, fArm: 53.7 });
-const WP_LOW = P(WP(29), { uArm: 118.9, fArm: 34.3 });
+const WP_TOP = P(WP(14), { uArm: 127.9, fArm: 127.6 });   // arms straight
+const WP_A = P(WP(20), { uArm: 171.7, fArm: 91.4 });
+const WP_B = P(WP(26), { uArm: 196.8, fArm: 81.1 });
+const WP_LOW = P(WP(32), { uArm: 225.5, fArm: 82.7 });    // elbows down and back, forearms level
 
 export const wallPushup = {
-  id: 'wall-pushup', name: 'Wall push-up', view: 'side', duration: 4200, prop: 'wall',
+  id: 'wall-pushup', name: 'Wall push-up', view: 'side', duration: 4800, prop: 'wall',
   touch: ['ankleN', 'toeN'],
   keyframes: [
-    { t: 0, pose: WP_TOP, plant: 'handN', cue: 'Arms straight, hands on the wall at shoulder height' },
-    { t: 850, pose: WP_MID, plant: 'handN', ease: 'in', cue: 'Bend your elbows, bring your chest to the wall' },
-    { t: 1700, pose: WP_LOW, plant: 'handN', ease: 'out', cue: 'Bend your elbows, bring your chest to the wall' },
-    { t: 2100, pose: WP_LOW, plant: 'handN', cue: 'Pause close to the wall' },
-    { t: 2900, pose: WP_MID, plant: 'handN', ease: 'in', cue: 'Push away until your arms are straight' },
-    { t: 3700, pose: WP_TOP, plant: 'handN', ease: 'out', cue: 'Push away until your arms are straight' },
-    { t: 4200, pose: WP_TOP, plant: 'handN', cue: 'Reset' },
+    { t: 0, pose: WP_TOP, plant: 'handN', cue: 'Arms straight, hands on the wall' },
+    { t: 650, pose: WP_A, plant: 'handN', ease: 'in', cue: 'Bend your elbows. They point down and back' },
+    { t: 1200, pose: WP_B, plant: 'handN', ease: 'linear', cue: 'Bend your elbows. They point down and back' },
+    { t: 1750, pose: WP_LOW, plant: 'handN', ease: 'out', cue: 'Bend your elbows. They point down and back' },
+    { t: 2250, pose: WP_LOW, plant: 'handN', cue: 'Pause close to the wall' },
+    { t: 2900, pose: WP_B, plant: 'handN', ease: 'in', cue: 'Push the wall away until your arms are straight' },
+    { t: 3450, pose: WP_A, plant: 'handN', ease: 'linear', cue: 'Push the wall away until your arms are straight' },
+    { t: 4100, pose: WP_TOP, plant: 'handN', ease: 'out', cue: 'Push the wall away until your arms are straight' },
+    { t: 4800, pose: WP_TOP, plant: 'handN', cue: 'Reset' },
   ],
 };
 
@@ -130,25 +134,23 @@ export const reverseLunge = {
 };
 
 // ---- Glute bridge (side view, lying on the back, head to the right) ----
-// Shoulders and feet stay in place; angles solved so both stay on the floor.
-const GB_LOW = {
-  torso: 90, head: 70, uArm: 270, fArm: 270,
-  thigh: 322.5, shin: 206.4, ft: 270,
-};
-const GB_TOP = {
-  torso: 110, head: 63, uArm: 270, fArm: 270,
-  thigh: 299.3, shin: 194.3, ft: 270,
-};
+// Shoulders and feet never move. At the top, shoulders - hips - knees are ONE straight sloping line.
+// Angles solved so the feet stay flat and the shoulders stay on the floor the whole time.
+const GB_LOW = { torso: 90, head: 70, uArm: 270, fArm: 270, thigh: 328.9, shin: 196.6, ft: 270 };
+const GB_MID = { torso: 102, head: 66, uArm: 270, fArm: 270, thigh: 311.8, shin: 185, ft: 270 };
+const GB_TOP = { torso: 115, head: 63, uArm: 270, fArm: 270, thigh: 295.6, shin: 180.2, ft: 270 };   // 115 + 180 = 295: one straight line
 
 export const gluteBridge = {
-  id: 'glute-bridge', name: 'Glute bridge', view: 'side', duration: 4600,
+  id: 'glute-bridge', name: 'Glute bridge', view: 'side', duration: 5600,
   touch: ['ankleN', 'toeN', 'shoulderN'],
   keyframes: [
     { t: 0, pose: GB_LOW, plant: 'ankleN', cue: 'Lie on your back, knees bent, feet flat' },
-    { t: 1500, pose: GB_TOP, plant: 'ankleN', cue: 'Squeeze your bottom and lift your hips' },
-    { t: 2300, pose: GB_TOP, plant: 'ankleN', cue: 'Hold for a moment' },
-    { t: 3900, pose: GB_LOW, plant: 'ankleN', cue: 'Lower your hips slowly' },
-    { t: 4600, pose: GB_LOW, plant: 'ankleN', cue: 'Reset' },
+    { t: 800, pose: GB_MID, plant: 'ankleN', ease: 'in', cue: 'Squeeze your bottom and lift your hips' },
+    { t: 1500, pose: GB_TOP, plant: 'ankleN', ease: 'out', cue: 'Squeeze your bottom and lift your hips' },
+    { t: 3400, pose: GB_TOP, plant: 'ankleN', cue: 'Hold at the top: one straight line from shoulders to knees' },
+    { t: 4100, pose: GB_MID, plant: 'ankleN', ease: 'in', cue: 'Lower your hips slowly' },
+    { t: 4900, pose: GB_LOW, plant: 'ankleN', ease: 'out', cue: 'Lower your hips slowly' },
+    { t: 5600, pose: GB_LOW, plant: 'ankleN', cue: 'Reset' },
   ],
 };
 
@@ -175,8 +177,8 @@ const CR_DOWN = {
   torso: 90, head: 70, uArm: 40, fArm: 190,
   thigh: 322.5, shin: 206.4, ft: 270,
 };
-const CR_UP = {
-  torso: 58, head: 42, uArm: 8, fArm: 158,
+const CR_UP = {                       // only the shoulder blades lift: torso up 28 degrees, chin tucked
+  torso: 62, head: 52, uArm: 12, fArm: 162,
   thigh: 322.5, shin: 206.4, ft: 270,
 };
 
@@ -185,8 +187,8 @@ export const crunch = {
   touch: ['ankleN', 'toeN'],
   keyframes: [
     { t: 0, pose: CR_DOWN, plant: 'ankleN', cue: 'Knees bent, hands lightly behind your head' },
-    { t: 1300, pose: CR_UP, plant: 'ankleN', cue: 'Tighten your tummy and curl your shoulders up' },
-    { t: 1700, pose: CR_UP, plant: 'ankleN', cue: 'Pause at the top' },
+    { t: 1300, pose: CR_UP, plant: 'ankleN', cue: 'Tighten your tummy and lift just your shoulder blades' },
+    { t: 1700, pose: CR_UP, plant: 'ankleN', cue: 'Pause. Lower back stays on the floor' },
     { t: 3000, pose: CR_DOWN, plant: 'ankleN', cue: 'Lower slowly, with control' },
     { t: 4000, pose: CR_DOWN, plant: 'ankleN', cue: 'Reset' },
   ],
@@ -194,14 +196,14 @@ export const crunch = {
 
 // ---- Lying knee raise (side view). Knees come up towards the chest. ----
 const LK_DOWN = { torso: 90, head: 70, uArm: 270, fArm: 270, thigh: -37.5, shin: 206.4, ft: 270 };   // -37.5 = 322.5; keep angles continuous
-const LK_UP = { torso: 90, head: 70, uArm: 270, fArm: 270, thigh: 15, shin: 255, ft: 240 };
+const LK_UP = { torso: 90, head: 70, uArm: 270, fArm: 270, thigh: 40, shin: 225, ft: 250 };   // knees pulled in over the chest (towards the head)
 
 export const lyingKneeRaise = {
   id: 'lying-knee-raise', name: 'Lying knee raise', view: 'side', duration: 4200,
   keyframes: [
     { t: 0, pose: LK_DOWN, cue: 'Lie on your back, knees bent, feet on the floor' },
-    { t: 1500, pose: LK_UP, cue: 'Bring your knees up towards your chest' },
-    { t: 2000, pose: LK_UP, cue: 'Pause, tummy tight' },
+    { t: 1500, pose: LK_UP, cue: 'Pull your knees in towards your chest' },
+    { t: 2000, pose: LK_UP, cue: 'Knees over your chest. Pause, tummy tight' },
     { t: 3500, pose: LK_DOWN, cue: 'Lower your feet back to the floor slowly' },
     { t: 4200, pose: LK_DOWN, cue: 'Reset' },
   ],
@@ -369,43 +371,59 @@ export const stepJack = {
 };
 
 // ---- Mountain climber (side view, high plank, hands on the floor) ----
-// The legs swap through a middle pose where the hips lift a little, so the knees clear the floor.
-const MC_BASE = { torso: 71.5, head: 75.5, uArm: 180, fArm: 180 };
-const MC_A = P(MC_BASE, { thigh: 112, shin: 245, ft: -110, thighF: 251.5, shinF: 251.5, ftF: 150 });
-const MC_B = P(MC_BASE, { thighF: 112, shinF: 245, ftF: -110, thigh: 251.5, shin: 251.5, ft: 150 });
-const MC_MID = { torso: 84, head: 90, uArm: 180, fArm: 180, thigh: 185, shin: 275, ft: -110, thighF: 185, shinF: 275, ftF: -110 };   // hips bounce up a little while the legs swap
+// The body stays in the same high plank the whole time: hips level, hands planted, no kneeling.
+// One leg leads the swap: it passes through a bent-knee middle pose with the foot lifted, while the
+// other leg is still stretched out, so both knees are never low at the same moment.
+const MC_BASE = { torso: 80, head: 84, uArm: 180, fArm: 180 };
+const _smooth = (x, a, b) => { const u = Math.min(1, Math.max(0, (x - a) / (b - a))); return u * u * (3 - 2 * u); };
+// s = 0: knee driven in, s = 1: leg stretched back (toe on the floor)
+function mcLeg(s) {
+  const k = s < 0.5 ? s / 0.5 : (s - 0.5) / 0.5;
+  return {
+    thigh: s < 0.5 ? 112 + (190 - 112) * k : 190 + (246.5 - 190) * k,
+    shin: s < 0.5 ? 245 + (285 - 245) * k : 285 + (246.5 - 285) * k,
+    ft: s < 0.7 ? -110 : -110 + 260 * ((s - 0.7) / 0.3),
+  };
+}
+const mcKeyframes = [];
+const MC_T = 900, MC_N = 15;
+for (let i = 0; i <= MC_N; i++) {
+  const f = i / MC_N;                                                              // phase 0..1
+  const sN = _smooth(f, 0.10, 0.35) - _smooth(f, 0.60, 0.85);                      // near leg: in -> out -> in
+  const sF = 1 - _smooth(f, 0.25, 0.50) + _smooth(f, 0.75, 1.0);                   // far leg: out -> in -> out
+  const n = mcLeg(sN), fa = mcLeg(sF);
+  mcKeyframes.push({
+    t: Math.round(f * MC_T), plant: 'handN', ease: 'linear',
+    cue: 'Strong plank, hips level. Drive one knee in, then switch quickly',
+    pose: { ...MC_BASE, thigh: n.thigh, shin: n.shin, ft: n.ft, thighF: fa.thigh, shinF: fa.shin, ftF: fa.ft },
+  });
+}
 
 export const mountainClimber = {
-  id: 'mountain-climber', name: 'Mountain climber', view: 'side', duration: 900,
+  id: 'mountain-climber', name: 'Mountain climber', view: 'side', duration: MC_T,
   touch: ['handN'],
-  keyframes: [
-    { t: 0, pose: MC_A, plant: 'handN', ease: 'out', cue: 'Strong plank, drive one knee towards your chest' },
-    { t: 225, pose: MC_MID, plant: 'handN', ease: 'linear', cue: 'Switch legs quickly, keep your hips low' },
-    { t: 450, pose: MC_B, plant: 'handN', ease: 'out', cue: 'Strong plank, drive one knee towards your chest' },
-    { t: 675, pose: MC_MID, plant: 'handN', ease: 'linear', cue: 'Switch legs quickly, keep your hips low' },
-    { t: 900, pose: MC_A, plant: 'handN', ease: 'out', cue: 'Strong plank, drive one knee towards your chest' },
-  ],
+  keyframes: mcKeyframes,
 };
 
-// ---- Standing mountain climber (side view). Low impact: stand tall, hands forward, knees drive up. ----
-const SM_STAND = { torso: 12, head: 10, uArm: 105, fArm: 70, thigh: 180, shin: 180, ft: 90 };
-const SM_LIFT = P(SM_STAND, { thigh: 150, shin: 205, ft: 100, thighF: 180, shinF: 180, ftF: 90 });
-const SM_A = P(SM_STAND, { thigh: 95, shin: 185, ft: 130, thighF: 180, shinF: 180, ftF: 90 });
-const SM_LIFT_B = P(SM_STAND, { thighF: 150, shinF: 205, ftF: 100 });
-const SM_B = P(SM_STAND, { thighF: 95, shinF: 185, ftF: 130 });
+// ---- Standing mountain climber (side view). Low impact: as one knee drives up, the opposite arm reaches overhead. ----
+const SM_DOWN = { torso: 4, head: 2, uArm: 178, fArm: 172, thigh: 180, shin: 180, ft: 90 };
+const SM_LIFT_A = P(SM_DOWN, { thigh: 150, shin: 205, ft: 100, thighF: 180, shinF: 180, ftF: 90, uArmF: 95, fArmF: 85 });
+const SM_A = P(SM_DOWN, { torso: 8, thigh: 95, shin: 185, ft: 130, thighF: 180, shinF: 180, ftF: 90, uArmF: 12, fArmF: 8 });
+const SM_LIFT_B = P(SM_DOWN, { thighF: 150, shinF: 205, ftF: 100, uArm: 95, fArm: 85 });
+const SM_B = P(SM_DOWN, { torso: 8, thighF: 95, shinF: 185, ftF: 130, uArm: 12, fArm: 8 });
 
 export const standingMountainClimber = {
-  id: 'standing-mountain-climber', name: 'Standing mountain climber', view: 'side', duration: 2000,
+  id: 'standing-mountain-climber', name: 'Standing mountain climber', view: 'side', duration: 2400,
   keyframes: [
-    { t: 0, pose: SM_STAND, plant: 'ankleF', cue: 'Stand tall, hands out in front of your chest' },
-    { t: 180, pose: SM_LIFT, plant: 'ankleF', ease: 'in', cue: 'Lift one knee towards your chest' },
-    { t: 450, pose: SM_A, plant: 'ankleF', ease: 'out', cue: 'Lift one knee towards your chest' },
-    { t: 720, pose: SM_LIFT, plant: 'ankleF', ease: 'in', cue: 'Lower it and switch' },
-    { t: 1000, pose: SM_STAND, plant: 'ankleN', ease: 'out', cue: 'Lower it and switch' },
-    { t: 1180, pose: SM_LIFT_B, plant: 'ankleN', ease: 'in', cue: 'Lift the other knee' },
-    { t: 1450, pose: SM_B, plant: 'ankleN', ease: 'out', cue: 'Lift the other knee' },
-    { t: 1720, pose: SM_LIFT_B, plant: 'ankleN', ease: 'in', cue: 'Lower it and switch' },
-    { t: 2000, pose: SM_STAND, plant: 'ankleN', ease: 'out', cue: 'Lower it and switch' },
+    { t: 0, pose: SM_DOWN, plant: 'ankleF', cue: 'Stand tall, arms by your sides' },
+    { t: 220, pose: SM_LIFT_A, plant: 'ankleF', ease: 'in', cue: 'Drive one knee up and reach the opposite arm overhead' },
+    { t: 550, pose: SM_A, plant: 'ankleF', ease: 'out', cue: 'Drive one knee up and reach the opposite arm overhead' },
+    { t: 900, pose: SM_LIFT_A, plant: 'ankleF', ease: 'in', cue: 'Lower both, then switch sides' },
+    { t: 1200, pose: SM_DOWN, plant: 'ankleN', ease: 'out', cue: 'Lower both, then switch sides' },
+    { t: 1420, pose: SM_LIFT_B, plant: 'ankleN', ease: 'in', cue: 'Now the other knee and the other arm' },
+    { t: 1750, pose: SM_B, plant: 'ankleN', ease: 'out', cue: 'Now the other knee and the other arm' },
+    { t: 2100, pose: SM_LIFT_B, plant: 'ankleN', ease: 'in', cue: 'Lower both, then switch sides' },
+    { t: 2400, pose: SM_DOWN, plant: 'ankleN', ease: 'out', cue: 'Lower both, then switch sides' },
   ],
 };
 
@@ -569,27 +587,29 @@ export const gentleStretching = {
   ],
 };
 
-// ---- Hip mobility (front view): lift the knee, open it out to the side, lower ----
-const HM_STAND = { torso: 0, head: 0, uArm: 125, fArm: 215, thigh: 180, shin: 180, ft: 90 };
-const HM_LIFT = P(HM_STAND, { torso: -2, head: -2, thigh: 150, shin: 205, ft: 90, thighF: 180, shinF: 180, ftF: 90 });
-const HM_A = P(HM_STAND, { torso: -4, head: -4, thigh: 85, shin: 175, ft: 90, thighF: 180, shinF: 180, ftF: 90 });   // near knee out
-const HM_LIFT_B = P(HM_STAND, { torso: 2, head: 2, thighF: 150, shinF: 205, ftF: 90 });
-const HM_B = P(HM_STAND, { torso: 4, head: 4, thighF: 85, shinF: 175, ftF: 90 });                                     // far knee out
+// ---- Kneeling hip-flexor stretch (side view) ----
+// Near leg = front leg: foot flat, shin vertical. Far leg = back leg, knee on the floor. Torso upright, hands on hips.
+// The front foot and back knee never move. The hips glide forward about 5 cm and back (angles worked out for that).
+const HF_BACK = {
+  torso: 0, head: 0, uArm: 223, fArm: 145.3,
+  thigh: 91.6, shin: 180, ft: 90,                 // front leg
+  thighF: 193, shinF: 268, ftF: 270,              // back leg, knee on the floor
+};
+const HF_FWD = {
+  torso: 0, head: 0, uArm: 223, fArm: 145.3,
+  thigh: 88.7, shin: 192, ft: 90,
+  thighF: 205.6, shinF: 268, ftF: 270,
+};
 
-export const hipMobility = {
-  id: 'hip-mobility', name: 'Hip mobility', view: 'front', duration: 6400,
+export const hipFlexorStretch = {
+  id: 'hip-flexor-stretch', name: 'Kneeling hip-flexor stretch', view: 'side', duration: 9000,
+  touch: ['ankleN', 'kneeF'],
   keyframes: [
-    { t: 0, pose: HM_STAND, plant: 'ankleF', cue: 'Stand tall, hands on your hips' },
-    { t: 500, pose: HM_LIFT, plant: 'ankleF', ease: 'in', cue: 'Lift one knee and open it out to the side' },
-    { t: 1200, pose: HM_A, plant: 'ankleF', ease: 'out', cue: 'Lift one knee and open it out to the side' },
-    { t: 2000, pose: HM_A, plant: 'ankleF', cue: 'Slow and controlled. Hold on to a wall if you need to' },
-    { t: 2700, pose: HM_LIFT, plant: 'ankleF', ease: 'in', cue: 'Lower your foot' },
-    { t: 3200, pose: HM_STAND, plant: 'ankleN', ease: 'out', cue: 'Lower your foot' },
-    { t: 3700, pose: HM_LIFT_B, plant: 'ankleN', ease: 'in', cue: 'Lift the other knee and open it out' },
-    { t: 4400, pose: HM_B, plant: 'ankleN', ease: 'out', cue: 'Lift the other knee and open it out' },
-    { t: 5200, pose: HM_B, plant: 'ankleN', cue: 'Slow and controlled' },
-    { t: 5900, pose: HM_LIFT_B, plant: 'ankleN', ease: 'in', cue: 'Lower your foot' },
-    { t: 6400, pose: HM_STAND, plant: 'ankleN', ease: 'out', cue: 'Lower your foot' },
+    { t: 0, pose: HF_BACK, plant: 'ankleN', cue: 'One knee down, front foot flat, back straight, hands on hips' },
+    { t: 3200, pose: HF_FWD, plant: 'ankleN', cue: 'Slowly ease your hips forward until you feel a stretch' },
+    { t: 5600, pose: HF_FWD, plant: 'ankleN', cue: 'Hold and breathe. Keep your chest tall' },
+    { t: 8600, pose: HF_BACK, plant: 'ankleN', cue: 'Ease your hips back slowly' },
+    { t: 9000, pose: HF_BACK, plant: 'ankleN', cue: 'Reset' },
   ],
 };
 
@@ -635,6 +655,6 @@ export const ANIMATIONS = {
   'modified-burpee': modifiedBurpee, 'jumping-jack': jumpingJack, 'step-jack': stepJack,
   'mountain-climber': mountainClimber, 'standing-mountain-climber': standingMountainClimber,
   'high-knees': highKnees, 'marching': marching, 'jogging': jogging,
-  'walking': walking, 'gentle-stretching': gentleStretching, 'hip-mobility': hipMobility,
+  'walking': walking, 'gentle-stretching': gentleStretching, 'hip-flexor-stretch': hipFlexorStretch,
   'shoulder-mobility': shoulderMobility, 'leg-stretches': legStretches,
 };

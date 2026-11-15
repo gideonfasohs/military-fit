@@ -1,6 +1,6 @@
 // MILITARY FIT service worker — caches the app shell, cache-first.
 // IMPORTANT: bump CACHE every time any cached file changes.
-const CACHE = 'militaryfit-v5';
+const CACHE = 'militaryfit-v6';
 const SHELL = [
   './',
   './index.html',
@@ -15,6 +15,13 @@ const SHELL = [
   './js/data/animations.js',
   './js/data/exercises.js',
   './js/icons.js',
+  './js/db.js',
+  './js/units.js',
+  './js/profile.js',
+  './js/data/questions.js',
+  './js/views/welcome.js',
+  './js/views/onboarding.js',
+  './js/views/myprofile.js',
   './js/views/coming.js',
   './js/views/library.js',
   './js/views/exercise.js',
