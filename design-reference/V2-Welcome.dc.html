@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Night Ops v2 — Welcome</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}a{color:#F2C14E}a:hover{color:#FFD97A}button{font-family:inherit}</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; box-sizing: border-box; background: #081120; color: #EEF2F8; font-family: Inter, sans-serif; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding: 70px 28px 40px">
+  <svg width="520" height="520" viewBox="0 0 520 520" aria-hidden="true" style="position: absolute; top: -40px; left: -65px">
+    <circle cx="260" cy="260" r="250" fill="none" stroke="#14233B" stroke-width="2"/>
+    <circle cx="260" cy="260" r="200" fill="none" stroke="#14233B" stroke-width="2"/>
+    <circle cx="260" cy="260" r="150" fill="none" stroke="#182B48" stroke-width="2"/>
+  </svg>
+
+  <div style="position: relative; width: 220px; height: 220px; border-radius: 50%; background: #111F35; border: 3px solid {{accent}}; display: flex; align-items: center; justify-content: center; margin-top: 30px">
+    <svg width="150" height="150" viewBox="0 0 120 120" role="img" aria-label="MILITARY FIT emblem: shield with chevrons and a star">
+      <path d="M60 8l42 15v32c0 27-19 45-42 53-23-8-42-26-42-53V23z" fill="#172A47" stroke="{{accent}}" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M36 62l24 14 24-14M36 76l24 14 24-14" fill="none" stroke="{{accent}}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M60 26l5.3 10.8 11.9 1.7-8.6 8.4 2 11.8L60 53.1l-10.6 5.6 2-11.8-8.6-8.4 11.9-1.7z" fill="{{accent}}"/>
+    </svg>
+  </div>
+
+  <div style="position: relative; margin-top: 36px; text-align: center; font-family: 'Barlow Condensed', sans-serif; line-height: .9">
+    <div style="font-size: 76px; font-weight: 700; letter-spacing: 1px">MILITARY</div>
+    <div style="font-size: 76px; font-weight: 700; letter-spacing: 1px; color: {{accent}}">FIT</div>
+  </div>
+  <p style="position: relative; margin: 14px 0 0; font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 600; letter-spacing: 1px">Train. Track. Transform.</p>
+
+  <div style="position: relative; margin-top: auto; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 16px">
+    <button style="width: 100%; height: 58px; border: none; border-radius: 29px; background: {{accent}}; color: #081120; font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; gap: 10px">Get Started
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+    <p style="margin: 0; text-align: center; font-size: 15px; line-height: 1.5; color: #93A3BC">Your personal fitness coach,<br>right on your phone.</p>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#F2C14E","options":["#F2C14E","#E0B04A","#D4A537"]},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return { accent: this.props.accent ?? '#F2C14E' }; }
+}
+</script>
+</body>
+</html>

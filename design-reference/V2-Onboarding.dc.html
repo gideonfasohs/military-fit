@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Night Ops v2 — Onboarding</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}a{color:#F2C14E}a:hover{color:#FFD97A}button{font-family:inherit}</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #081120; color: #EEF2F8; font-family: Inter, sans-serif; padding: 30px 20px 24px; display: flex; flex-direction: column; gap: 20px; overflow: hidden">
+  <div style="display: flex; align-items: center; gap: 0; padding: 0 30px">
+    <div style="width: 14px; height: 14px; border-radius: 50%; background: {{accent}}"></div>
+    <div style="flex: 1; height: 3px; background: {{accent}}"></div>
+    <div style="width: 14px; height: 14px; border-radius: 50%; background: {{accent}}; box-shadow: 0 0 0 5px #3A3216"></div>
+    <div style="flex: 1; height: 3px; background: #22395C"></div>
+    <div style="width: 14px; height: 14px; border-radius: 50%; background: #22395C"></div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 6px">
+    <h1 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 38px; line-height: 1.05; font-weight: 700">What is your primary fitness goal?</h1>
+    <p style="margin: 0; font-size: 15px; color: #93A3BC">Select one or more.</p>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 8px; flex: 1">
+    <sc-for list="{{options}}" as="o" hint-placeholder-count="9">
+      <button onClick="{{o.toggle}}" style="{{o.row}}">
+        <span style="{{o.chip}}">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{o.icon}}"/></svg>
+        </span>
+        <span style="flex: 1; text-align: left; font-size: 15px; font-weight: 600">{{o.label}}</span>
+        <span style="{{o.check}}">
+          <sc-if value="{{o.on}}" hint-placeholder-val="{{false}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#081120" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg></sc-if>
+        </span>
+      </button>
+    </sc-for>
+  </div>
+
+  <button style="height: 58px; border: none; border-radius: 29px; background: {{accent}}; color: #081120; font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px">Next
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </button>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#F2C14E","options":["#F2C14E","#E0B04A","#D4A537"]},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { sel: { fat: true, belly: true } }; }
+  renderVals() {
+    const accent = this.props.accent ?? '#F2C14E';
+    const list = [
+      ['fat', 'Lose overall body fat', 'M12 3c2 4 6 6 6 11a6 6 0 0 1-12 0c0-3 2-5 3-7 1 2 2 3 3 3 0-3-1-5 0-7z'],
+      ['belly', 'Reduce belly fat & waist', 'M3 8h18v8H3zM7 8v3M11 8v4M15 8v3'],
+      ['muscle', 'Build muscle', 'M6 8v8M18 8v8M3 10v4M21 10v4M6 12h12'],
+      ['endurance', 'Improve endurance', 'M3 12h4l2-4 3 8 2-4h7'],
+      ['strength', 'Build strength', 'M13 3L5 14h6l-1 7 8-11h-6z'],
+      ['mobility', 'Improve flexibility', 'M4 12c3-2 13-2 16 0M12 7v8M8 20l4-5 4 5M12 3.5v.1'],
+      ['general', 'Be generally fitter', 'M5 12l4 4 10-10'],
+      ['military', 'Prepare for military fitness', 'M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z'],
+      ['other', 'Other…', 'M4 20l4-1 11-11-3-3L5 16z']
+    ];
+    const sel = this.state.sel;
+    const options = list.map(([id, label, icon]) => {
+      const on = !!sel[id];
+      return {
+        label, icon, on,
+        row: 'min-height: 54px; border-radius: 16px; padding: 0 14px; display: flex; align-items: center; gap: 12px; color: #EEF2F8; ' +
+          (on ? 'background: #1A2A3F; border: 1.5px solid ' + accent : 'background: #111F35; border: 1.5px solid #111F35'),
+        chip: 'width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: #2B2A1E; color: ' + accent,
+        check: 'width: 24px; height: 24px; border-radius: 50%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; ' +
+          (on ? 'background: ' + accent : 'border: 2px solid #3A5174'),
+        toggle: () => this.setState({ sel: { ...sel, [id]: !on } })
+      };
+    });
+    return { accent, options };
+  }
+}
+</script>
+</body>
+</html>

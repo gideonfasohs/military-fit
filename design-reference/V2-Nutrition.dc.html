@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Night Ops v2 — Nutrition</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}a{color:#F2C14E}a:hover{color:#FFD97A}button{font-family:inherit}</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #081120; color: #EEF2F8; font-family: Inter, sans-serif; padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 12px; overflow: hidden">
+  <h1 style="margin: 0; text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 700">Nutrition</h1>
+  <div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700">Today's meals</span><span style="font-size: 13px; color: #93A3BC">2 of 4 logged</span></div>
+
+  <sc-for list="{{meals}}" as="m" hint-placeholder-count="4">
+    <div style="background: #111F35; border-radius: 18px; padding: 10px 14px 10px 10px; display: flex; align-items: center; gap: 12px">
+      <svg width="58" height="58" viewBox="0 0 60 60" aria-hidden="true">
+        <circle cx="30" cy="30" r="28" fill="#E9E4D6"/><circle cx="30" cy="30" r="21" fill="#F6F2E8"/>
+        <circle cx="23" cy="25" r="9" fill="{{m.c1}}"/><circle cx="37" cy="28" r="8" fill="{{m.c2}}"/><circle cx="28" cy="39" r="7" fill="{{m.c3}}"/>
+      </svg>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+        <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700">{{m.name}}</span>
+        <span style="font-size: 13px; color: #93A3BC">{{m.food}}</span>
+      </div>
+      <span style="{{m.check}}"><sc-if value="{{m.done}}" hint-placeholder-val="{{false}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#081120" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg></sc-if></span>
+    </div>
+  </sc-for>
+
+  <div style="background: #111F35; border-radius: 18px; padding: 14px; display: flex; align-items: center; gap: 14px">
+    <svg width="40" height="48" viewBox="0 0 24 28" aria-hidden="true"><path d="M12 2C9 7 4 12 4 18a8 8 0 0 0 16 0c0-6-5-11-8-16z" fill="#4C9BE8"/><path d="M8 19a4 4 0 0 0 4 4" stroke="#BFE0FF" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+    <div style="flex: 1; display: flex; flex-direction: column; gap: 6px">
+      <div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-size: 13px; color: #93A3BC">Water intake</span><span style="font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700">1.5 / 2.5 L</span></div>
+      <div style="height: 8px; border-radius: 4px; background: #1E3253"><div style="width: 60%; height: 100%; border-radius: 4px; background: #4C9BE8"></div></div>
+    </div>
+    <button aria-label="Add 250 millilitres of water" style="width: 48px; height: 48px; border-radius: 14px; border: none; background: #17304F; color: #9CCBF5; font-size: 12px; font-weight: 700">+250</button>
+  </div>
+
+  <div style="background: #2B2A1E; border-radius: 18px; padding: 14px; display: flex; gap: 12px; align-items: flex-start">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="{{accent}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 19px; font-weight: 700; color: {{accent}}">Nutrition tip</span>
+      <span style="font-size: 13px; line-height: 1.45; color: #E8E1C4">Add a protein to every meal — eggs, beans, fish, milk or chicken. Portions here are estimates.</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#F2C14E","options":["#F2C14E","#E0B04A","#D4A537"]},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const accent = this.props.accent ?? '#F2C14E';
+    const base = 'width: 26px; height: 26px; border-radius: 50%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; ';
+    const meals = [
+      { name: 'Breakfast', food: 'Uji, boiled eggs & banana', c1: '#E8D9A8', c2: '#F4C430', c3: '#F3E36B', done: true },
+      { name: 'Lunch', food: 'Rice, beans & mchicha', c1: '#FFFFFF', c2: '#8B4A3A', c3: '#3E8E41', done: true },
+      { name: 'Dinner', food: 'Ugali, fish & cabbage', c1: '#F5F0DC', c2: '#C77D3A', c3: '#9BC27A', done: false },
+      { name: 'Snack', food: 'Mango & groundnuts', c1: '#F6A623', c2: '#C8945A', c3: '#F6A623', done: false }
+    ].map(m => ({ ...m, check: base + (m.done ? 'background: ' + accent : 'border: 2px solid #3A5174') }));
+    return { accent, meals };
+  }
+}
+</script>
+</body>
+</html>

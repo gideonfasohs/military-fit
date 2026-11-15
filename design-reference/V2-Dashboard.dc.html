@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Night Ops v2 — Dashboard</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}a{color:#F2C14E}a:hover{color:#FFD97A}button{font-family:inherit}</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #081120; color: #EEF2F8; font-family: Inter, sans-serif; display: flex; flex-direction: column; overflow: hidden">
+  <div style="flex: 1; padding: 18px 18px 12px; display: flex; flex-direction: column; gap: 13px; overflow: hidden">
+    <div style="display: flex; align-items: center; justify-content: space-between">
+      <div style="display: flex; align-items: center; gap: 8px">
+        <svg width="30" height="30" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 8l42 15v32c0 27-19 45-42 53-23-8-42-26-42-53V23z" fill="#172A47" stroke="{{accent}}" stroke-width="8" stroke-linejoin="round"/><path d="M36 62l24 14 24-14M36 80l24 14 24-14" fill="none" stroke="{{accent}}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: .5px">MILITARY <span style="color: {{accent}}">FIT</span></span>
+      </div>
+      <button aria-label="Reminders" style="width: 44px; height: 44px; border-radius: 14px; border: none; background: #111F35; color: {{accent}}; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/></svg></button>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <h1 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 34px; font-weight: 700; line-height: 1.05">Good morning, Gideon!</h1>
+      <span style="font-size: 14px; color: #93A3BC">Stay consistent. You're on track.</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1.25fr 1fr; gap: 12px">
+      <div style="background: #111F35; border-radius: 20px; padding: 12px; display: flex; flex-direction: column; align-items: center; gap: 2px">
+        <svg width="118" height="118" viewBox="0 0 120 120" role="img" aria-label="Weekly completion 70 percent">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="#1E3253" stroke-width="12"/>
+          <circle cx="60" cy="60" r="50" fill="none" stroke="{{accent}}" stroke-width="12" stroke-linecap="round" stroke-dasharray="219.9 314.2" transform="rotate(-90 60 60)"/>
+          <text x="60" y="70" text-anchor="middle" font-family="Barlow Condensed" font-size="34" font-weight="700" fill="#EEF2F8">70%</text>
+        </svg>
+        <span style="font-size: 12px; color: #93A3BC">Weekly completion</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <div style="flex: 1; background: #111F35; border-radius: 20px; padding: 14px; display: flex; flex-direction: column; justify-content: center">
+          <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 700; line-height: 1">Day 4<span style="color: #93A3BC; font-size: 20px"> /30</span></span>
+          <span style="font-size: 12px; color: #93A3BC">Week 1 · Foundation</span>
+        </div>
+        <div style="flex: 1; background: #2B2A1E; border-radius: 20px; padding: 14px; display: flex; align-items: center; gap: 10px">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="{{accent}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c2 4 6 6 6 11a6 6 0 0 1-12 0c0-3 2-5 3-7 1 2 2 3 3 3 0-3-1-5 0-7z"/></svg>
+          <div style="display: flex; flex-direction: column"><span style="font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; line-height: 1; color: {{accent}}">3 days</span><span style="font-size: 12px; color: #D8CFA8">Streak</span></div>
+        </div>
+      </div>
+    </div>
+
+    <button style="height: 56px; border: none; border-radius: 18px; background: {{accent}}; color: #081120; font-family: 'Barlow Condensed', sans-serif; font-size: 23px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px">Start Today's Workout
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#081120" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg>
+    </button>
+
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+      <sc-for list="{{stats}}" as="s" hint-placeholder-count="3">
+        <div style="background: #111F35; border-radius: 16px; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; gap: 4px">
+          <span style="width: 32px; height: 32px; border-radius: 10px; background: #2B2A1E; color: {{accent}}; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{s.icon}}"/></svg></span>
+          <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700">{{s.value}}</span>
+          <span style="font-size: 11px; color: #93A3BC">{{s.label}}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="background: #111F35; border-radius: 18px; padding: 14px 14px 8px; display: flex; flex-direction: column; gap: 4px">
+      <div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700">Your progress</span><span style="font-size: 12px; color: #93A3BC">Workouts per week</span></div>
+      <svg width="100%" height="92" viewBox="0 0 320 92" preserveAspectRatio="none" role="img" aria-label="Workouts per week rising from 2 to 5 over six weeks">
+        <defs><linearGradient id="dg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{{accent}}" stop-opacity=".35"/><stop offset="1" stop-color="{{accent}}" stop-opacity="0"/></linearGradient></defs>
+        <path d="M8 72 L68 60 L128 66 L188 46 L248 38 L312 18 L312 92 L8 92Z" fill="url(#dg)"/>
+        <polyline points="8,72 68,60 128,66 188,46 248,38 312,18" fill="none" stroke="{{accent}}" stroke-width="3" stroke-linejoin="round"/>
+        <g fill="#081120" stroke="{{accent}}" stroke-width="2.5"><circle cx="8" cy="72" r="4"/><circle cx="68" cy="60" r="4"/><circle cx="128" cy="66" r="4"/><circle cx="188" cy="46" r="4"/><circle cx="248" cy="38" r="4"/><circle cx="312" cy="18" r="4"/></g>
+      </svg>
+    </div>
+
+    <div style="background: #111F35; border-radius: 16px; padding: 12px 14px; display: flex; align-items: center; gap: 12px">
+      <span style="width: 36px; height: 36px; border-radius: 50%; background: #2B2A1E; color: {{accent}}; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v3M16 3v3M4 8h16v12H4z"/></svg></span>
+      <div style="display: flex; flex-direction: column"><span style="font-size: 14px; font-weight: 600">Next: Active recovery</span><span style="font-size: 12px; color: #93A3BC">Tomorrow · 20–30 min walk</span></div>
+    </div>
+  </div>
+
+  <nav style="height: 70px; background: #0C182B; border-top: 1px solid #1A2B45; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr))">
+    <a href="#" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: {{accent}}; font-size: 11px; font-weight: 700"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9H3z"/></svg>Home</a>
+    <a href="#" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #93A3BC; font-size: 11px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M18 8v8M3 10v4M21 10v4M6 12h12"/></svg>Workouts</a>
+    <a href="#" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #93A3BC; font-size: 11px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h6v14H4zM14 5h6v14h-6z"/></svg>Library</a>
+    <a href="#" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #93A3BC; font-size: 11px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19l5-6 4 3 7-9"/></svg>Progress</a>
+    <a href="#" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #93A3BC; font-size: 11px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>More</a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#F2C14E","options":["#F2C14E","#E0B04A","#D4A537"]},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      accent: this.props.accent ?? '#F2C14E',
+      stats: [
+        { value: '78.4 kg', label: 'Weight', icon: 'M5 20h14l-2-12H7zM9 8a3 3 0 0 1 6 0' },
+        { value: '92 cm', label: 'Waist', icon: 'M3 8h18v8H3zM7 8v3M11 8v4M15 8v3' },
+        { value: '142 min', label: 'Active time', icon: 'M12 8v5l3 2M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM10 2h4' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Night Ops v2 — Camera workout</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}a{color:#F2C14E}a:hover{color:#FFD97A}button{font-family:inherit}</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #081120; color: #EEF2F8; font-family: Inter, sans-serif; padding: 16px 18px 20px; display: flex; flex-direction: column; gap: 14px; overflow: hidden">
+  <div style="display: flex; align-items: center; gap: 10px">
+    <button aria-label="Back" style="width: 44px; height: 44px; border-radius: 14px; border: none; background: #111F35; color: #EEF2F8; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <h1 style="margin: 0; flex: 1; text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 700">Push-ups</h1>
+    <button aria-label="Stop camera" style="width: 44px; height: 44px; border-radius: 14px; border: none; background: #3A1A20; color: #FF8A8F; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h12v10H3zM15 10l6-3v10l-6-3M2 2l20 20"/></svg></button>
+  </div>
+
+  <div style="align-self: center; padding: 8px 16px; border-radius: 999px; background: #10291C; border: 1.5px solid #2F7A4B; color: #7BE3A1; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px"><span style="width: 9px; height: 9px; border-radius: 50%; background: #4ADE80"></span>Camera active · on this phone only</div>
+
+  <div style="position: relative; height: 420px; border-radius: 22px; overflow: hidden; background: #1A2638">
+    <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 150px; background: #222F44"></div>
+    <div style="position: absolute; left: 30px; right: 30px; bottom: 70px; height: 16px; border-radius: 8px; background: #2D3B52"></div>
+    <svg width="354" height="420" viewBox="0 0 354 420" role="img" aria-label="Camera view: person doing a push-up with tracked body points" style="position: absolute; inset: 0">
+      <g stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#3E4C63">
+        <path d="M70 340 L120 322 L176 300 L240 280" stroke-width="30"/>
+        <path d="M240 282 L244 318 L242 342" stroke-width="18"/>
+      </g>
+      <circle cx="268" cy="264" r="20" fill="#3E4C63"/>
+      <g stroke="{{accent}}" stroke-width="3" fill="none" stroke-linecap="round">
+        <polyline points="62,344 120,322 176,300 240,282"/>
+        <polyline points="240,282 244,316 242,344"/>
+        <line x1="240" y1="282" x2="266" y2="266"/>
+      </g>
+      <g fill="#081120" stroke="{{accent}}" stroke-width="3">
+        <circle cx="62" cy="344" r="6"/><circle cx="120" cy="322" r="6"/><circle cx="176" cy="300" r="6"/><circle cx="240" cy="282" r="6"/><circle cx="244" cy="316" r="6"/><circle cx="242" cy="344" r="6"/><circle cx="266" cy="266" r="6"/>
+      </g>
+      <text x="252" y="312" fill="#EEF2F8" font-size="12" font-family="Inter" font-weight="600">elbow 165°</text>
+    </svg>
+    <div style="position: absolute; top: 16px; left: 16px; right: 16px; background: #2B2A1E; border: 1.5px solid {{accent}}; border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between">
+      <div style="display: flex; flex-direction: column">
+        <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; color: {{accent}}">Rep counted!</span>
+        <span style="font-size: 12px; color: #D8CFA8">Full range · good body line</span>
+      </div>
+      <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 44px; font-weight: 700; line-height: 1">1<span style="font-size: 26px; color: #D8CFA8"> / 15</span></span>
+    </div>
+    <span style="position: absolute; bottom: 14px; left: 14px; padding: 6px 12px; border-radius: 999px; background: #10291C; color: #7BE3A1; font-size: 12px; font-weight: 700">Camera verified</span>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+    <div style="background: #111F35; border-radius: 16px; padding: 12px 14px; display: flex; align-items: center; gap: 10px">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="{{accent}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8v5l3 2M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM10 2h4"/></svg>
+      <div style="display: flex; flex-direction: column"><span style="font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 700; line-height: 1">00:12</span><span style="font-size: 12px; color: #93A3BC">Active time</span></div>
+    </div>
+    <div style="background: #111F35; border-radius: 16px; padding: 12px 14px; display: flex; align-items: center; gap: 10px">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#93A3BC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8v5l3 2M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM10 2h4"/></svg>
+      <div style="display: flex; flex-direction: column"><span style="font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 700; line-height: 1">00:45</span><span style="font-size: 12px; color: #93A3BC">Rest time</span></div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 6px">
+    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #93A3BC"><span>Set 1 of 2</span><span>1 of 15 reps</span></div>
+    <div style="height: 8px; border-radius: 4px; background: #1E3253"><div style="width: 7%; height: 100%; border-radius: 4px; background: {{accent}}"></div></div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#F2C14E","options":["#F2C14E","#E0B04A","#D4A537"]},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return { accent: this.props.accent ?? '#F2C14E' }; }
+}
+</script>
+</body>
+</html>
